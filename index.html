@@ -463,6 +463,12 @@ footer.foot{background-color:#0a121f;color:rgba(255,255,255,.6);padding:50px 0 3
 .nav-scrim{position:fixed;inset:0;background-color:rgba(8,16,28,.5);opacity:0;pointer-events:none;transition:opacity .4s;z-index:150;backdrop-filter:blur(2px)}
 .nav-scrim.show{opacity:1;pointer-events:auto}
 </style>
+<script>
+/* Arm the scroll-reveal animation BEFORE first paint so elements start hidden
+   (no flicker). Skipped when the page runs inside a builder/editor iframe or
+   when IntersectionObserver is unavailable — there content stays visible. */
+try{ if('IntersectionObserver' in window && window.self===window.top){ document.documentElement.className += ' js-anim'; } }catch(e){}
+</script>
 </head>
 <body>
 
@@ -910,18 +916,13 @@ menuBtn.addEventListener('click',()=>toggleMenu(!navLinks.classList.contains('op
 scrim.addEventListener('click',()=>toggleMenu(false));
 navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
 
-/* scroll reveal (progressive enhancement) */
-const revealAll=()=>document.querySelectorAll('.reveal:not(.in)').forEach(el=>el.classList.add('in'));
-try{
-  // opt into the animated hidden->shown behavior only now that JS is running
-  document.documentElement.classList.add('js-anim');
+/* scroll reveal — only when armed (top-level page, IntersectionObserver present) */
+if(document.documentElement.classList.contains('js-anim') && 'IntersectionObserver' in window){
   const io=new IntersectionObserver((entries)=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
   },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-  // failsafe: if the observer never fires (e.g. inside a builder iframe), show everything
-  window.addEventListener('load',()=>setTimeout(revealAll,1500));
-}catch(err){ revealAll(); }
+}
 
 /* footer year */
 document.getElementById('yr').textContent=new Date().getFullYear();
