@@ -272,17 +272,27 @@ section{position:relative;padding:clamp(70px,9vw,120px) 0}
    SCHEDULE
    ============================================================ */
 .schedule{background:var(--paper)}
-.sched-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.sched-card{background:var(--cream);border:1px solid var(--line);border-radius:5px;overflow:hidden}
-.sched-card .head{background:var(--navy);color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
-.sched-card .head h4{font-size:1.12rem}
-.sched-card .head .k{font-family:var(--kanji);color:var(--red-bright);font-size:1.3rem}
-.sched-rows{padding:8px 24px 18px}
-.srow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px dashed var(--line);gap:16px}
-.srow:last-child{border-bottom:none}
-.srow .d{font-weight:700;color:var(--navy);font-size:.94rem}
-.srow .d small{display:block;font-weight:400;color:rgba(22,37,63,.6);font-size:.8rem}
-.srow .t{font-family:var(--serif);color:var(--red);font-weight:700;font-size:.98rem;white-space:nowrap}
+.timetable{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.day-col{background:var(--cream);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column}
+.day-col .day-head{background:var(--navy);color:#fff;text-align:center;padding:14px 8px}
+.day-col .day-head .en{display:block;font-family:var(--serif);font-weight:700;font-size:1.02rem;letter-spacing:.03em}
+.day-col .day-head .k{display:block;font-family:var(--kanji);font-size:.76rem;color:var(--red-bright);margin-top:3px;letter-spacing:.12em}
+.day-body{padding:12px;display:flex;flex-direction:column;gap:11px;flex:1}
+.cls{border-left:3px solid var(--accent,var(--navy));background:var(--paper-card);border-radius:0 4px 4px 0;padding:11px 13px;transition:transform .22s,box-shadow .22s}
+.cls:hover{transform:translateX(3px);box-shadow:var(--shadow-soft)}
+.cls .t{font-family:var(--serif);font-weight:700;color:var(--red);font-size:.82rem;white-space:nowrap}
+.cls .n{font-weight:700;color:var(--navy);font-size:.9rem;margin-top:3px;line-height:1.25}
+.cls .a{font-size:.74rem;color:rgba(22,37,63,.58);margin-top:3px;letter-spacing:.02em}
+.cls.little{--accent:var(--gold)}
+.cls.youth{--accent:var(--navy-soft)}
+.cls.teen{--accent:#3a5a8c}
+.cls.adult{--accent:var(--red)}
+.cls.kick{--accent:var(--red-deep)}
+.cls.team{--accent:var(--gold)}
+.cls.team{background:linear-gradient(180deg,rgba(200,155,74,.12),var(--paper-card))}
+.sched-legend{display:flex;flex-wrap:wrap;gap:12px 22px;justify-content:center;margin-top:24px}
+.sched-legend span{display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:rgba(22,37,63,.72);font-weight:500}
+.sched-legend span::before{content:"";width:13px;height:13px;border-radius:3px;background:var(--lg,var(--navy))}
 .sched-note{margin-top:22px;font-size:.86rem;color:rgba(22,37,63,.6);font-style:italic;display:flex;gap:10px;align-items:flex-start}
 .sched-note .seal{width:42px;height:42px;font-size:1.05rem;transform:rotate(-5deg)}
 
@@ -410,7 +420,8 @@ footer.foot{background:#0a121f;color:rgba(255,255,255,.6);padding:50px 0 30px}
   .mission .wrap{grid-template-columns:1fr;gap:36px}
   .trust-grid{grid-template-columns:repeat(2,1fr)}
   .prog-grid{grid-template-columns:1fr}
-  .sched-wrap{grid-template-columns:1fr}
+  .timetable{grid-auto-flow:column;grid-template-columns:none;grid-auto-columns:minmax(180px,1fr);overflow-x:auto;-webkit-overflow-scrolling:touch;scroll-snap-type:x mandatory;padding-bottom:8px}
+  .day-col{scroll-snap-align:start}
   .price-grid{grid-template-columns:1fr;max-width:480px;margin:0 auto}
   .sensei-grid{grid-template-columns:1fr;gap:60px}
   .portrait-frame{max-width:380px;margin:0 auto}
@@ -645,11 +656,63 @@ footer.foot{background:#0a121f;color:rgba(255,255,255,.6);padding:50px 0 30px}
     <div class="section-head center reveal">
       <span class="kicker center">Weekly Schedule</span>
       <h2>When we train</h2>
-      <p>Consistent class times you can build a routine around. View the full weekly schedule for current class days and times.</p>
+      <p>Consistent class times you can build a routine around — find the class that fits your age and level below.</p>
     </div>
-    <div class="sched-cta reveal" style="text-align:center">
-      <a href="https://mandevillekarate.com/schedule" target="_blank" rel="noopener" class="btn btn-primary">View the weekly schedule <span class="arrow">→</span></a>
+    <div class="timetable reveal">
+
+      <div class="day-col">
+        <div class="day-head"><span class="en">Monday</span><span class="k">月曜</span></div>
+        <div class="day-body">
+          <div class="cls little"><div class="t">5:00 – 5:45 PM</div><div class="n">Little Samurai</div><div class="a">Ages 5–7</div></div>
+          <div class="cls youth"><div class="t">5:45 – 7:00 PM</div><div class="n">Youth Advanced</div><div class="a">Ages 8–10</div></div>
+          <div class="cls kick"><div class="t">7:00 – 8:30 PM</div><div class="n">Kickboxing</div><div class="a">Teen &amp; Adult</div></div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-head"><span class="en">Tuesday</span><span class="k">火曜</span></div>
+        <div class="day-body">
+          <div class="cls youth"><div class="t">4:45 – 5:45 PM</div><div class="n">Youth / Teen Beginner</div><div class="a">Ages 8–10</div></div>
+          <div class="cls teen"><div class="t">5:45 – 7:00 PM</div><div class="n">Teen Advanced</div><div class="a">Ages 11–15</div></div>
+          <div class="cls adult"><div class="t">7:00 – 8:30 PM</div><div class="n">Adult Jissen-Ryu</div><div class="a">Ages 16+</div></div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-head"><span class="en">Wednesday</span><span class="k">水曜</span></div>
+        <div class="day-body">
+          <div class="cls little"><div class="t">5:00 – 5:45 PM</div><div class="n">Little Samurai</div><div class="a">Ages 5–7</div></div>
+          <div class="cls youth"><div class="t">5:45 – 7:00 PM</div><div class="n">Youth Advanced</div><div class="a">Ages 8–10</div></div>
+          <div class="cls kick"><div class="t">7:00 – 8:30 PM</div><div class="n">Kickboxing</div><div class="a">Teen &amp; Adult</div></div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-head"><span class="en">Thursday</span><span class="k">木曜</span></div>
+        <div class="day-body">
+          <div class="cls youth"><div class="t">4:45 – 5:45 PM</div><div class="n">Youth / Teen Beginner</div><div class="a">Ages 8–10</div></div>
+          <div class="cls teen"><div class="t">5:45 – 7:00 PM</div><div class="n">Teen Advanced</div><div class="a">Ages 11–15</div></div>
+          <div class="cls adult"><div class="t">7:00 – 8:30 PM</div><div class="n">Adult Jissen-Ryu</div><div class="a">Ages 16+</div></div>
+        </div>
+      </div>
+
+      <div class="day-col">
+        <div class="day-head"><span class="en">Friday</span><span class="k">金曜</span></div>
+        <div class="day-body">
+          <div class="cls team"><div class="t">5:00 – 6:00 PM</div><div class="n">Team Training</div><div class="a">By invitation only</div></div>
+        </div>
+      </div>
+
     </div>
+
+    <div class="sched-legend reveal">
+      <span style="--lg:var(--gold)">Little Samurai &amp; Team</span>
+      <span style="--lg:var(--navy-soft)">Youth</span>
+      <span style="--lg:#3a5a8c">Teen</span>
+      <span style="--lg:var(--red)">Adult</span>
+      <span style="--lg:var(--red-deep)">Kickboxing</span>
+    </div>
+
     <div class="sched-note reveal">
       <div class="seal">時</div>
       <p>Little Samurai is designed so new students can start the first week of any month without feeling behind. Have questions about which class fits your child? Reach out — we'll point you in the right direction. <em>(Confirm exact start dates &amp; any holiday changes with the front desk.)</em></p>
